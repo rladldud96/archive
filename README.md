@@ -1,3 +1,13 @@
+# SaaS Marketing Funnel Performance Analysis
+
+##  Business Summary
+This query identifies which acquisition channels drive the highest volume of qualified leads by calculating the conversion rate from initial sign-up to a paid "Pro" or "Enterprise" tier. The data reveals that while Organic search brings in the highest raw volume, certain referral sources may significantly outperform others in terms of actual account maturity. A Marketing Ops professional would use this insight to reallocate budget toward the highest-converting channels and investigate why specific sources are producing high-volume but low-quality leads.
+
+## Tech Stack
+* **SQL (BigQuery):** Data extraction and conversion rate calculation.
+* **Tableau:** Visualizing lead volume by acquisition channel.
+* **Git/GitHub:** Version control and portfolio documentation.
+
 \# RavenStack: Synthetic SaaS Dataset (Multi-Table)
 
 
