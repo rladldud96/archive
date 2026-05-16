@@ -4,6 +4,22 @@
 
 This analysis focuses on the conversion gap between MQLs (leads) and Opportunities (paid tiers). While Organic search leads in volume, the data shows that certain referral channels have a much higher "Account Maturity" potential. This insight helps Marketing Ops teams move beyond simple "lead counting" to revenue-focused budget allocation.
 
+
+### Advanced SQL Techniques Used
+* **Window Functions (LAG):** Performed time-series analysis to calculate Month-over-Month (MoM) lead growth.
+* **Data Transformation:** Used `DATE_TRUNC` to aggregate daily logs into monthly business insights.
+* **Error Handling:** Implemented `SAFE_DIVIDE` to prevent calculation errors during months with zero initial data.
+
+### [Chart 1/3] MQL Volume by Referral Channel
+* **Objective**: Identifying which marketing channels drive the highest volume of Marketing Qualified Leads (MQLs).
+* **Key Metrics**: Total Leads, Opportunity Count, Conversion Rate (%).
+* **Business Insight**: Helped determine which channels provide high-quality leads (Opportunities) rather than just raw traffic, enabling more efficient budget allocation for Marketing Operations.
+
+#### [Chart 2/3] Funnel Conversion Rate
+* **Question:** Where are we losing the most potential customers?
+* **Insight:** The biggest drop-off occurs between SAL and SQL (40% decrease), suggesting a gap in lead follow-up timing.
+* **Ops Impact:** Identified the need for a smoother hand-off process between Marketing and Sales teams.
+
 \# RavenStack: Synthetic SaaS Dataset (Multi-Table)
 
 
