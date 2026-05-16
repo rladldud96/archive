@@ -20,6 +20,14 @@ This analysis focuses on the conversion gap between MQLs (leads) and Opportuniti
 * **Insight:** The biggest drop-off occurs between SAL and SQL (40% decrease), suggesting a gap in lead follow-up timing.
 * **Ops Impact:** Identified the need for a smoother hand-off process between Marketing and Sales teams.
 
+#### [Chart 3/3] Monthly MQL Volume Trend
+* **Objective**: Tracking the growth trajectory of lead generation month-over-month (MoM).
+* **Key Metrics**: Monthly MQL Count.
+* **Technical Highlights**: 
+    * Utilized `DATE_TRUNC` in BigQuery to aggregate daily signup timestamps into clean monthly intervals.
+    * Built a continuous **Line Chart** in Tableau to maximize scannability of long-term trends.
+* **Business Insight**: Identified seasonal spikes in user signups, pinpointing which months' marketing campaigns yielded the highest volume expansion.
+
 \# RavenStack: Synthetic SaaS Dataset (Multi-Table)
 
 
