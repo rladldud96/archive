@@ -5,7 +5,7 @@
 This analysis focuses on the conversion gap between MQLs (leads) and Opportunities (paid tiers). While Organic search leads in volume, the data shows that certain referral channels have a much higher "Account Maturity" potential. This insight helps Marketing Ops teams move beyond simple "lead counting" to revenue-focused budget allocation.
 
 
-### Advanced SQL Techniques Used
+### Query 1: Advanced SQL Techniques Used
 * **Window Functions (LAG):** Performed time-series analysis to calculate Month-over-Month (MoM) lead growth.
 * **Data Transformation:** Used `DATE_TRUNC` to aggregate daily logs into monthly business insights.
 * **Error Handling:** Implemented `SAFE_DIVIDE` to prevent calculation errors during months with zero initial data.
@@ -27,6 +27,11 @@ This analysis focuses on the conversion gap between MQLs (leads) and Opportuniti
     * Utilized `DATE_TRUNC` in BigQuery to aggregate daily signup timestamps into clean monthly intervals.
     * Built a continuous **Line Chart** in Tableau to maximize scannability of long-term trends.
 * **Business Insight**: Identified seasonal spikes in user signups, pinpointing which months' marketing campaigns yielded the highest volume expansion.
+
+### Query 2: Account Segmentation & Paid Conversion Rates
+* **Objective:** Segment accounts by their acquisition channel (`referral_source`) and business size tier (`seats_tier`) to identify which customer segments yield the highest paid conversion rates.
+* **SQL Techniques:** Multi-stage CTEs, Conditional Aggregation (`CASE WHEN`), `ROUND`
+* **Business Value:** Enables the marketing and sales teams to optimize budget allocation by targeting high-converting channels and high-volume seat tiers, maximizing B2B SaaS ARR (Annual Recurring Revenue).
 
 \# RavenStack: Synthetic SaaS Dataset (Multi-Table)
 
