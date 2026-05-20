@@ -1,5 +1,5 @@
 /* Project: Marketing Funnel Performance Analysis
-  Objective: Calculate the conversion rate from MQL to Opportunity by referral channel.
+  -- QUERY #1: Calculate the conversion rate from MQL to Opportunity by referral channel.
   Metric: MQL-to-Opportunity Conversion Rate (%)
 */
 
@@ -74,3 +74,38 @@ UNION ALL
 SELECT '4. Opportunity' AS stage, COUNT(account_id), 4
 FROM `ravenstack-analysis-496219.ravenstack_data.accounts` 
 WHERE plan_tier = 'Enterprise';
+
+
+-- QUERY #2: Account Segmentation by Source & Seats Tier with Conversion Rate
+
+WITH account_segmentation AS (
+    SELECT 
+        account_id,
+        referral_source,
+        
+        -- 1. Segment accounts into tiers based on the number of seats (business size)
+        CASE 
+            WHEN seats >= 20 THEN 'High-Volume (Enterprise)'
+            WHEN seats >= 5 THEN 'Mid-Volume (Mid-Market)'
+            ELSE 'Low-Volume (SMB)'
+        END AS seats_tier,
+        
+        -- 2. Define conversion: 1 if they upgraded to a paid plan, 0 if they stayed on 'Free'
+        CASE 
+            WHEN plan_tier != 'Free' THEN 1 
+            ELSE 0 
+        END AS is_paid
+    FROM `ravenstack-analysis-496219.ravenstack_data.accounts` 
+)
+
+SELECT 
+    referral_source,
+    seats_tier,
+    COUNT(*) AS total_accounts,
+    SUM(is_paid) AS paid_conversion_count,
+    
+    -- 3. Calculate the final Paid Conversion Rate (%) rounded to 1 decimal place
+    ROUND(100.0 * SUM(is_paid) / COUNT(*), 1) AS conversion_rate_pct
+FROM account_segmentation
+GROUP BY referral_source, seats_tier
+ORDER BY referral_source, conversion_rate_pct DESC;
