@@ -33,6 +33,13 @@ This analysis focuses on the conversion gap between MQLs (leads) and Opportuniti
 * **SQL Techniques:** Multi-stage CTEs, Conditional Aggregation (`CASE WHEN`), `ROUND`
 * **Business Value:** Enables the marketing and sales teams to optimize budget allocation by targeting high-converting channels and high-volume seat tiers, maximizing B2B SaaS ARR (Annual Recurring Revenue).
 
+### Query 3: Full-Funnel Progression & Friction Point Analysis
+* **Objective:** Build a unified, bottom-of-funnel (BoFu) view to track account velocity through all major lifecycle stages (MQL ➡️ SAL ➡️ SQL ➡️ Opportunity) and dynamically compute both cumulative and stage-to-stage conversion rates.
+
+* **SQL Techniques:** Data Unpivoting (UNION ALL), Window Functions (FIRST_VALUE, LAG), Advanced Null Handling (COALESCE, SAFE_DIVIDE)
+
+* **Business Value:** Serves as the ultimate Revenue Operations (RevOps) dashboard matrix; it isolates exact leakage points where potential high-value accounts drop out, empowering sales enablement to optimize pitch strategies and pricing tiers.
+
 \# RavenStack: Synthetic SaaS Dataset (Multi-Table)
 
 
