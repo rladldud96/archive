@@ -109,3 +109,50 @@ SELECT
 FROM account_segmentation
 GROUP BY referral_source, seats_tier
 ORDER BY referral_source, conversion_rate_pct DESC;
+
+
+-- QUERY #3: Funnel Analysis (MQL -> SAL -> SQL -> Opportunity)
+
+WITH funnel_stages AS (
+    SELECT 
+        account_id,
+        1 AS is_mql,
+        CASE WHEN plan_tier != 'Free' AND plan_tier IS NOT NULL THEN 1 ELSE 0 END AS is_sal,
+        CASE WHEN plan_tier IN ('Pro', 'Enterprise') THEN 1 ELSE 0 END AS is_sql,
+        CASE WHEN plan_tier = 'Enterprise' THEN 1 ELSE 0 END AS is_opp
+    FROM `ravenstack-analysis-496219.ravenstack_data.accounts`
+),
+funnel_counts AS (
+    SELECT 
+        SUM(is_mql) AS mql_count,
+        SUM(is_sal) AS sal_count,
+        SUM(is_sql) AS sql_count,
+        SUM(is_opp) AS opp_count
+    FROM funnel_stages
+),
+unpivoted_funnel AS (
+    SELECT 1 AS stage_num, '1. MQL' AS stage, mql_count AS account_count FROM funnel_counts
+    UNION ALL
+    SELECT 2, '2. SAL', sal_count FROM funnel_counts
+    UNION ALL
+    SELECT 3, '3. SQL', sql_count FROM funnel_counts
+    UNION ALL
+    SELECT 4, '4. Opportunity', opp_count FROM funnel_counts
+)
+SELECT 
+    stage,
+    account_count,
+    ROUND(
+        SAFE_DIVIDE(account_count, FIRST_VALUE(account_count) OVER (ORDER BY stage_num)) * 100, 
+        1
+    ) AS total_conversion_pct,
+
+    ROUND(
+        SAFE_DIVIDE(
+            account_count, 
+            COALESCE(LAG(account_count, 1) OVER (ORDER BY stage_num), account_count)
+        ) * 100, 
+        1
+    ) AS stage_to_stage_conversion_pct
+FROM unpivoted_funnel
+ORDER BY stage_num;
